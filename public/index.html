@@ -24,7 +24,30 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+        <!-- font-google -->
+        <link href="https://fonts.googleapis.com/css?family=SF+Text+Regular:400,500,600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=SF+Regular:400,500,600&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=SF+Medium:400,500,600&display=swap" rel="stylesheet">
+    
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+    
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    
+        <!-- BS4 CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+        <!-- OWL CAROUSEL -->
+        <link rel="stylesheet" href="./tix/tix/css/owl-carousel/owl.carousel.css">
+        <link rel="stylesheet" href="./tix/tix/css/owl-carousel/owl.theme.default.css">
+    
+        <!-- VENOBOX -->
+        <link rel="stylesheet" href="./tix/tix/css/VENOBOX/venobox.css">
+    
+        <!-- Main CSS -->
+        <link rel="stylesheet" href="./tix/tix/css/main.css">
     <title>React App</title>
+    
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -39,5 +62,57 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
+    <!--libs-->
+  
   </body>
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+  <!-- BS4 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+  <!-- OWL CAROUSEL JS -->
+  <script src="./tix/tix/JS/owl-carousel/owl.carousel.js"></script>
+  <script>
+      $('.owl-carousel').owlCarousel({
+          loop: true,
+          nav: true,
+          autoplay: true,
+          responsive:{
+              0:{
+                  items: 1
+              },
+              600:{
+                  items: 1
+              },
+              1000:{
+                  items: 1
+              },
+          }
+      })
+  </script>
+
+  <!-- Hiệu ứng Jump bằng jQuery -->
+  <script>
+      $(function(){
+          $(".jumper").on("click",function(){
+              $("body, html").animate({
+                  scrollTop: $($(this).attr('href')).offset().top
+              }, 600);
+          });
+      });
+  </script>
+
+  <!-- VENOBOX -->
+  <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+  <script src=".tix/tix/JS/VENOBOX/venobox.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          $('.venobox').venobox();
+      });
+  </script>
+  <script>
+    console.log('alo');
+  </script>
 </html>
