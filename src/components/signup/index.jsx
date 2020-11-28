@@ -14,8 +14,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
-import { loginRequest } from "../../redux/actions/user.action";
+import { signupRequest } from "../../redux/actions/user.action";
 import {NavLink} from "react-router-dom";
+import { MenuItem } from '@material-ui/core';
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -35,14 +36,18 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
-export default function Login() {
+export default function Signup() {
   const classes = useStyles();
   const dispatch = useDispatch(); // giống this.props.dispatch
   const history = useHistory();
   const [user, setUser] = useState({
     taiKhoan: "",
     matKhau: "",
+    hoTen:"",
+    soDt: "",
+    maNhom: "",
+    email: "",
+    
   });
   const handleChange = (event) => {
     setUser({
@@ -53,8 +58,7 @@ export default function Login() {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(loginRequest(user,history));
-    
+    dispatch(signupRequest(user, history));
   };
 
   return (
@@ -69,7 +73,7 @@ export default function Login() {
             />
             <div className="login__text">
               <p>
-                Đăng nhập để được nhiều ưu đãi, mua vé <br />
+                Đăng ký để được nhiều ưu đãi, mua vé <br />
                 và bảo mật thông tin!
               </p>
               <form className={classes.form} noValidate onSubmit={handleSubmit}>
@@ -97,6 +101,48 @@ export default function Login() {
                   autoComplete="matKhau"
                   onChange={handleChange}
                 />
+            
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="email"
+                  label="Email"
+                  type="text"
+                  id="email"
+                  autoComplete="email"
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="soDt"
+                  label="phone number"
+                  type="text"
+                  id="soDt"
+                  autoComplete="soDt"
+                  onChange={handleChange}
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="hoTen"
+                  label="Full name"
+                  type="text"
+                  id="hoTen"
+                  autoComplete="hoTen"
+                  onChange={handleChange}
+                />
+                <TextField id="select" label="GroupCode" value="GP01" select onChange={handleChange} name="maNhom">
+                  <MenuItem value="GP01">GP01</MenuItem>
+                  <MenuItem value="GP02">GP02</MenuItem>
+                  <MenuItem value="GP03">GP03</MenuItem>
+                </TextField>
                 <Button
                   type="submit"
                   fullWidth
@@ -104,35 +150,18 @@ export default function Login() {
                   color="primary"
                   className={classes.submit}
                 >
-                  Sign In
+                  Sign Up
                 </Button>
                 <Grid container>
                   <Grid item>
-                    <NavLink  to="/signup" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </NavLink >
+                    <NavLink to="/sign-in" variant="body2">
+                      {"You have an account? Sign In right now"}
+                    </NavLink>
                   </Grid>
                 </Grid>
               </form>
             </div>
-            <div className="row login__social">
-              <div className="col-md-12 login__facebook">
-                <a href="#" className="signIn">
-                  <img src="./tix/tix/img/btn-FB.png" alt="btnFB" />
-                </a>
-              </div>
-              <div className="col-md-12 login__zalo">
-                <a href="#">
-                  <img src="./tix/tix/img/btn-Zalo.png" alt="btnZalo" />
-                </a>
-              </div>
-              <div className="col-md-12 login__google">
-                <a href="#">
-                  <img src="./tix/tix/img/btn-Google.png" alt="btnGoogle" />
-                </a>
-              </div>
-            </div>
-            <a href="./tix/tix/views/index.html" className="login__signClose" />
+
           </div>
         </div>
       </div>

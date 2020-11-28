@@ -8,7 +8,10 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { logoutRequest } from "../../redux/actions/user.action";
+import { useState } from "react";
+let user = JSON.parse(localStorage.getItem("user"));
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -26,9 +29,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const classes = useStyles();
-  const isLogin = useSelector((state) => {
+  let isLogin = useSelector((state) => {
     return state.dependLogin.isLogin;
   });
+  let cloneUser = useSelector((state) => {
+    return state.dependLogin.user;
+  });
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    dispatch(logoutRequest());
+  };
+  const handleSelect=(event)=>{
+      event.preventDefault();
+      setLocation(event.target.value);
+      
+  }
+  let [location, setLocation] = useState("Hồ Chí Minh");
   return (
     <header>
       <div className="header__content">
@@ -60,12 +76,24 @@ export default function Header() {
             <img
               src="./tix/tix/img/avatar.png"
               alt="avatar"
-              className="header__avatar"
+              className="header__avatar m-3"
             />
-              {isLogin?<span>//tên user</span>:   <a href="./tix/tix/views/login.html" className="header__signIn">
-              Đăng Nhập
-            </a>}
-         
+
+            {/* {user != null || isLogin === true ? (
+              <span>{user?.taiKhoan}</span>
+              
+            ) : (
+              <NavLink to="/sign-in" className="header__signIn">
+                Đăng Nhập
+              </NavLink>
+            )} */}
+            {user!=null?<span>{user?.taiKhoan}</span>:isLogin===true?<span>{cloneUser.taiKhoan}</span>:<NavLink to="/sign-in" className="header__signIn">
+                Đăng Nhập
+              </NavLink>}
+
+            <button className="btn btn-light m-3" onClick={handleLogOut}>
+              Đăng Xuất
+            </button>
           </div>
           <div className="header__account dropdown header__location">
             <img
@@ -78,271 +106,89 @@ export default function Header() {
               data-toggle="dropdown"
               aria-expanded="false"
             >
-              Hồ Chí Minh
+              {location}
             </div>
             <ul className="dropdown-menu selectScroll">
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
+                <button  className="btn ng-binding" value="Hồ Chí Minh" onClick={handleSelect}>
                   Hồ Chí Minh
-                </a>
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
+              <button  className="btn ng-binding" value="Hà Nội" onClick={handleSelect}>
                   Hà Nội
-                </a>
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
+              <button  className="btn ng-binding" value="Đà Nẵng" onClick={handleSelect}>
                   Đà Nẵng
-                </a>
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Hải Phòng
-                </a>
+              <button  className="btn ng-binding" value="Hải phòng" onClick={handleSelect}>
+                  Hải phòng
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Biên Hòa
-                </a>
+              <button  className="btn ng-binding" value="Biên Hòa" onClick={handleSelect}>
+                 Biên Hòa
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Nha Trang
-                </a>
+              <button  className="btn ng-binding" value="Nha Trang" onClick={handleSelect}>
+                Nha Trang
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Bình Dương
-                </a>
+              <button  className="btn ng-binding" value="Bình Dương" onClick={handleSelect}>
+               Bình Dương
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Phan Thiết
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Hạ Long
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Cần Thơ
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
+              <button  className="btn ng-binding" value=" Vũng Tàu" onClick={handleSelect}>
                   Vũng Tàu
-                </a>
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
+              <button  className="btn ng-binding" value=" Hạ Long" onClick={handleSelect}>
+                 Hạ Long
+                </button>
+              </li>
+              <li className="ng-scope">
+              <button  className="btn ng-binding" value="Cần Thơ" onClick={handleSelect}>
+                  Cần Thơ
+                </button>
+              </li>
+              <li className="ng-scope">
+              <button  className="btn ng-binding" value="Quy Nhơn" onClick={handleSelect}>
                   Quy Nhơn
-                </a>
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Huế
-                </a>
+              <button  className="btn ng-binding" value=" Huế" onClick={handleSelect}>
+                 Huế
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
+              <button  className="btn ng-binding" value=" Long Xuyên" onClick={handleSelect}>
                   Long Xuyên
-                </a>
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Thái Nguyên
-                </a>
+              <button  className="btn ng-binding" value=" Thái Nguyên" onClick={handleSelect}>
+                 Thái Nguyên
+                </button>
               </li>
               <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Buôn Ma Thuột
-                </a>
+              <button  className="btn ng-binding" value="Buôn Mê Thuột" onClick={handleSelect}>
+                 Buôn Mê Thuột
+                </button>
               </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Bắc Giang
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Bến Tre
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Việt Trì
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Ninh Bình
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Thái Bình
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Vinh
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Bảo Lộc
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Đà Lạt
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Trà Vinh
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Yên Bái
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Kiên Giang
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Vĩnh Long
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Cà Mau
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Hậu Giang
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Tây Ninh
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Tuyên Quang
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Thanh Hóa
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Nam Định
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Hải Dương
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Gia Lai
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Hà Tĩnh
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Phú Yên
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Bạc Liêu
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Long An
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Đồng Hới
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Hà Nam
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Bắc Ninh
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Quảng Trị
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Kon Tum
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Sóc Trăng
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Sơn La
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Lạng Sơn
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Quảng Ngãi
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Mỹ Tho
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Đồng Tháp
-                </a>
-              </li>
-              <li className="ng-scope">
-                <a href="#" className="ng-bingding">
-                  Hưng Yên
-                </a>
-              </li>
+            
             </ul>
-          </div>
+          
+        </div>
+
         </div>
         <div className="header__leftMobile">
           <a href="./index.html" className="header__webLogo">
@@ -365,10 +211,15 @@ export default function Header() {
             <div className="header__wrapFirst">
               <p className="header__titleMenu">
                 <img src="./tix/tix/img/avatar.png" alt="avatar" />
-                {isLogin?<span>//tên user</span>:   <a href="./tix/tix/views/login.html" className="header__signIn">
-              Đăng Nhập
-            </a>}
+                {user != null || isLogin === true ? (
+                  <span>{user?.taiKhoan}</span>
+                ) : (
+                  <NavLink to="/sign-in" className="header__signIn">
+                    Đăng Nhập
+                  </NavLink>
+                )}
               </p>
+
               <img
                 src="./tix/tix/img/next-session.png"
                 alt="next-session"
@@ -396,9 +247,9 @@ export default function Header() {
             <a href="#" className="header__text">
               Hồ Chí Minh
             </a>
-            <a href="#" className="header__text">
-              Đăng xuất
-            </a>
+            <button className="btn btn-light m-3" onClick={handleLogOut}>
+              Đăng Xuất
+            </button>
           </div>
         </div>
       </div>

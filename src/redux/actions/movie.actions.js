@@ -41,19 +41,22 @@ function getMovieListFailed(error) {
   };
 }
 
-export function getMovieDetailRequest(movieCode) {
+export function getMovieDetailRequest(maPhim) {
   return function (dispatch) {
     // call api
+    console.log(maPhim);
     Axios.get(
-      `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${movieCode}`
+      `https://movie0706.cybersoft.edu.vn/api/QuanLyPhim/LayThongTinPhim?MaPhim=${maPhim}`
     )
       .then(function (res) {
         console.log(res);
         dispatch(getMovieDetailSuccess(res.data));
+
       })
       .catch(function (err) {
         console.log(err);
         dispatch(getMovieDetailFailed(err));
+  
       });
   };
 }

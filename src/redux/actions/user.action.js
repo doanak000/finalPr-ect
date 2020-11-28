@@ -1,35 +1,58 @@
+
 import Axios from "axios";
-import { startLoading, stopLoading } from "./common.actions";
+import { startLoading, stopLoading } from "../../redux/actions/common.actions";
+
 export function loginRequest(user, history) {
   return (dispatch) => {
     dispatch(startLoading());
-    //   call api
-    // c1
-    // Axios({
-    //   method: "POST",
-    //   url: "đường dẫn api",
-    //   data: {},
-    // });
-    // c2
-    Axios.post(
-      "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap",
-      user
-    )
+    Axios({
+      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap",
+      method: "POST",
+      data: user,
+      // headers: "Bearer" + accessToken,  
+    })
       .then(function (res) {
-        console.log(res);
-        // lưu xuống localStorage
-        localStorage.setItem("user", JSON.stringify(res.data));
 
-        //   chuyển về trang trước đó
-        // history.goBack();
-        // chuyển về home
-        history.push("/home");
+        localStorage.setItem("user", JSON.stringify(res.data));
+        history.push("/");
+        dispatch(login(res.data));
         dispatch(stopLoading());
       })
       .catch(function (err) {
-        // thông báo lồi cho người dùng
         console.log(err);
+        alert("oops,lỗi gì đó rùi");
+      });
+  };
+}
+export function logoutRequest() {
+  return {
+    type: "LOGOUT",
+  };
+}
+export function login(data) {
+  return {
+    type: "LOGIN",
+    payload:data,
+  };
+}
+
+export function signupRequest(user, history) {
+  return (dispatch) => {
+    dispatch(startLoading());
+    Axios({
+      url: "https://movie0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangKy",
+      method: "POST",
+      data: user,
+      // headers: "Bearer" + accessToken,  
+    })
+      .then(function (res) {
+        localStorage.setItem("user", JSON.stringify(res.data));
+        history.push("/");
         dispatch(stopLoading());
+      })
+      .catch(function (err) {
+        console.log(err);
+        alert("oops,lỗi gì đó rùi");
       });
   };
 }
